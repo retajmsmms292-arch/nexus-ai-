@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1020;color:white;
+ font-family:Arial,sans-serif;display:flex;min-height:100vh
+}
+aside{
+ width:245px;background:#111827;padding:20px;
+ border-left:1px solid #263044
+}
+.logo{font-size:25px;font-weight:bold;color:#8b9cff}
+.new{
+ width:100%;padding:13px;background:#263657;
+ color:white;border:0;border-radius:10px;margin:25px 0;
+ cursor:pointer
+}
+main{flex:1;display:flex;flex-direction:column;min-width:0}
+header{padding:20px;border-bottom:1px solid #263044}
+#chat{
+ flex:1;padding:25px;overflow-y:auto;
+ display:flex;flex-direction:column;gap:15px
+}
+.welcome{text-align:center;margin:auto}
+.welcome h1{font-size:35px;color:#9eabff}
+.msg{
+ padding:14px 17px;border-radius:15px;
+ max-width:85%;line-height:1.8;white-space:pre-wrap
+}
+.user{background:#34466b;align-self:flex-start}
+.bot{background:#1b263b;align-self:flex-end}
+form{
+ display:flex;gap:10px;padding:18px;
+ border-top:1px solid #263044
+}
+input{
+ flex:1;min-width:0;padding:16px;border:1px solid #35415c;
+ background:#182238;color:white;border-radius:12px;
+ font-size:16px;outline:none
+}
+button{
+ background:#6579f7;color:white;border:0;
+ border-radius:12px;padding:14px 20px;cursor:pointer
+}
+.small{font-size:12px;color:#8994ac}
+@media(max-width:600px){
+ aside{width:75px;padding:10px}
+ .brand{font-size:12px}
+ .new{font-size:11px;padding:10px 3px}
+ .history{display:none}
+ .welcome h1{font-size:27px}
+}
+</style>
+</head>
+<body>
+
+<aside>
+ <div class="logo">✦ Nexus AI</div>
+ <button class="new" onclick="newChat()">+ محادثة جديدة</button>
+ <div class="history small">مساعدك الذكي</div>
+</aside>
+
+<main>
+<header>🤖 Nexus AI <span class="small"> | مساعدك الذكي</span></header>
+
+<section id="chat">
+ <div class="welcome" id="welcome">
+  <h1>مرحباً بك في Nexus AI</h1>
+  <p>كيف يمكنني مساعدتك اليوم؟</p>
+  <p class="small">اسأل، اكتب، ترجم، تعلّم وابتكر.</p>
+ </div>
+</section>
+
+<form id="form">
+ <input id="question" placeholder="اكتب رسالتك هنا..." autocomplete="off">
+ <button type="submit">إرسال</button>
+</form>
+</main>
+
+<script>
+const chat=document.getElementById("chat");
+const form=document.getElementById("form");
+const input=document.getElementById("question");
+
+function addMessage(text,type){
+ const div=document.createElement("div");
+ div.className="msg "+type;
+ div.textContent=text;
+ chat.appendChild(div);
+ chat.scrollTop=chat.scrollHeight;
+}
+
+function newChat(){
+ chat.innerHTML="";
+ const welcome=document.createElement("div");
+ welcome.className="welcome";
+ welcome.innerHTML="<h1>مرحباً بك في Nexus AI</h1><p>كيف يمكنني مساعدتك اليوم؟</p>";
+ chat.appendChild(welcome);
+}
+
+form.addEventListener("submit",async(e)=>{
+ e.preventDefault();
+ const q=input.value.trim();
+ if(!q)return;
+ const welcome=document.getElementById("welcome");
+ if(welcome)welcome.remove();
+ addMessage(q,"user");
+ input.value="";
+ addMessage("واجهة Nexus AI جاهزة! لبدء الإجابة بالذكاء الاصطناعي الحقيقي يجب ربط الموقع بخدمة API.","bot");
+});
+</script>
+</body>
+</html>
